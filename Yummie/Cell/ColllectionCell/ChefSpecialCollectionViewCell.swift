@@ -12,7 +12,7 @@ import UIKit
 class ChefSpecialCollectionViewCell: UICollectionViewCell {
 
     @IBOutlet var title: UILabel!
-    @IBOutlet var descriptions: UILabel!
+  
     @IBOutlet var calories: UILabel!
     @IBOutlet var dishImage: UIImageView!
     override func awakeFromNib() {
@@ -24,8 +24,8 @@ class ChefSpecialCollectionViewCell: UICollectionViewCell {
     func setup(chefDish : Dish){
         
         title.text = chefDish.name
-        descriptions.text = chefDish.desctiption
-        calories.text = chefDish.formettedCalories
+        
+        calories.text = "\(chefDish.calories ?? 0)"
         dishImage.kf.setImage(with: chefDish.image?.asUrl)
     }
     

@@ -27,7 +27,7 @@ class ListDishTableViewCell: UITableViewCell {
         
         title.text = dish.name
         dishImage.kf.setImage(with: dish.image?.asUrl)
-        descriptions.text = dish.desctiption
+        descriptions.text = dish.description
         
     }
     func orderSetup(order : order){

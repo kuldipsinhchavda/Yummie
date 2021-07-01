@@ -23,7 +23,7 @@ class CategotyCollectionViewCell: UICollectionViewCell {
         
         categoryTitle.text = category.title
         
-        categoryImage.kf.setImage(with: category.image?.asUrl)
+        categoryImage.kf.setImage(with: category.image.asUrl)
         
        // categoryImage.image = category.image
         

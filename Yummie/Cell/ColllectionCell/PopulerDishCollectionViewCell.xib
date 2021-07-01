@@ -24,13 +24,13 @@
                                 <rect key="frame" x="5" y="10" width="170" height="255"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lFd-0y-Mce">
-                                        <rect key="frame" x="0.0" y="0.0" width="170" height="23.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="170" height="51"/>
                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="jJh-Vq-JB9">
-                                        <rect key="frame" x="0.0" y="31.5" width="170" height="170"/>
+                                        <rect key="frame" x="0.0" y="59" width="170" height="170"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="170" id="IUY-Yr-TQ1"/>
                                             <constraint firstAttribute="width" constant="170" id="u3l-5H-gaq"/>
@@ -42,15 +42,9 @@
                                         </userDefinedRuntimeAttributes>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1vv-HE-weP">
-                                        <rect key="frame" x="0.0" y="209.5" width="170" height="18"/>
+                                        <rect key="frame" x="0.0" y="237" width="170" height="18"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                         <color key="textColor" red="0.8260423925" green="0.0" blue="0.088028693850000006" alpha="1" colorSpace="calibratedRGB"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jk5-J0-C27">
-                                        <rect key="frame" x="0.0" y="235.5" width="170" height="19.5"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
@@ -78,7 +72,6 @@
             <size key="customSize" width="180" height="270"/>
             <connections>
                 <outlet property="caleroryTitle" destination="1vv-HE-weP" id="Jce-Eu-zs5"/>
-                <outlet property="descriptions" destination="Jk5-J0-C27" id="SQG-h9-756"/>
                 <outlet property="populerDishImage" destination="jJh-Vq-JB9" id="wr8-oI-wuk"/>
                 <outlet property="title" destination="lFd-0y-Mce" id="mq1-Od-Oai"/>
             </connections>

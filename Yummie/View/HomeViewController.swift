@@ -10,11 +10,11 @@ import ProgressHUD
 class HomeViewController: UIViewController {
     
     var cellClicked : ((Int) -> Void)?
-    var category : [DishCategory] = []
+    var categoryItem = [DishCategory]()
     
-    var populer : [Dish] = []
+    var popular = [Dish]()
     
-    var chefDish : [Dish] = []
+    var chefDish = [Dish]()
     
     @IBOutlet var populerDishCollectionView: UICollectionView!
     @IBOutlet var categoryCollectionView: UICollectionView!
@@ -26,24 +26,155 @@ class HomeViewController: UIViewController {
 //       let req = service.creataRequest(route: .temp, method: .post, parameters: ["name" : "kuldipsinh" , "lastName" : "chavda"])
 //        print("\(req.url)")
 //        print(req.httpBody)
+     //
+        
+        
         ProgressHUD.show()
-        NetworkService.shared.fetchAllCategories {[weak self] (restuls) in
-            switch restuls{
-            case .success(let allDishes):
-                print("success")
-                ProgressHUD.dismiss()
-                self?.category = allDishes.categoryDish ?? []
-                self?.populer = allDishes.populer ?? []
-                self?.chefDish = allDishes.chif ?? []
+        commenWs.getURL(url: "dish-categories") { (responce, status) in
+            
+            if status{
                 
-                self?.categoryCollectionView.reloadData()
-                self?.populerDishCollectionView.reloadData()
-                self?.chefDishCollectionVIew.reloadData()
-            case .failure(let error):
-                print(error.localizedDescription)
-                ProgressHUD.showError(error.localizedDescription)
+            ProgressHUD.dismiss()
+            
+            if let data = responce["data"] as? [String:Any]{
+                
+                if let categoryData = data["categories"] as? [NSDictionary]{
+                    
+                    print(categoryData)
+                    
+                    for i in 0..<categoryData.count{
+               
+                    do {
+                        let data2 = try JSONSerialization.data(withJSONObject: categoryData[i], options: .prettyPrinted)
+                        let reqStr = String(data: data2, encoding: .utf8)
+                        let strToData = reqStr?.data(using: .utf8)
+                        let userData = try JSONDecoder().decode(DishCategory.self, from: strToData!)
+                        print(userData)
+                        
+                        let title = userData.title
+                        let id = userData.id
+                        let image = userData.image
+                        
+                        let addData = DishCategory(title1: title, image1: image, id1: id)
+                        self.categoryItem.append(addData)
+                        
+                        self.categoryCollectionView.reloadData()
+                      
+                    }
+                    catch
+                        
+                    {
+                        ProgressHUD.showError(error.localizedDescription)
+                    }
+         
+                    }
+                    
+                }
+                
+                if let popularData = data["populars"] as? [NSDictionary] {
+                    
+                    
+                    for i in 0..<popularData.count{
+               
+                    do {
+                        let data2 = try JSONSerialization.data(withJSONObject: popularData[i], options: .prettyPrinted)
+                        let reqStr = String(data: data2, encoding: .utf8)
+                        let strToData = reqStr?.data(using: .utf8)
+                        let userData = try JSONDecoder().decode(Dish.self, from: strToData!)
+                        print(userData)
+                        
+                        let title = userData.name
+                        let id = userData.id
+                        let image = userData.image
+                        let calories = userData.calories
+                        let descriptions = userData.description
+                        
+                        let addData = Dish(title1: title!, image1: image!, id1: id!, cal: calories!, desc: descriptions ?? "good" )
+                        self.popular.append(addData)
+                        
+                        self.populerDishCollectionView.reloadData()
+                      
+                    }
+                    catch
+                        
+                    {
+                        ProgressHUD.showError(error.localizedDescription)
+                    }
+         
+                    }
+                    
+                }
+                if let popularData = data["specials"] as? [NSDictionary] {
+                    
+                    
+                    for i in 0..<popularData.count{
+               
+                    do {
+                        let data2 = try JSONSerialization.data(withJSONObject: popularData[i], options: .prettyPrinted)
+                        let reqStr = String(data: data2, encoding: .utf8)
+                        let strToData = reqStr?.data(using: .utf8)
+                        let userData = try JSONDecoder().decode(Dish.self, from: strToData!)
+                        print(userData)
+                        
+                        let title = userData.name
+                        let id = userData.id
+                        let image = userData.image
+                        let calories = userData.calories
+                        let descriptions = userData.description
+                        
+                        let addData = Dish(title1: title!, image1: image!, id1: id!, cal: calories!, desc: descriptions ?? "good" )
+                        self.chefDish.append(addData)
+                        
+                        self.chefDishCollectionVIew.reloadData()
+                      
+                    }
+                    catch
+                        
+                    {
+                        ProgressHUD.showError(error.localizedDescription)
+                    }
+         
+                    }
+                    
+                }
             }
+                
+                
+            }
+            else{
+                
+            }
+            
         }
+        
+        
+        
+        
+        
+        
+        
+        
+        
+//        NetworkService.shared.fetchAllCategories {[weak self] (restuls) in
+//
+//
+//
+//            switch restuls{
+//            case .success(let allDishes):
+//                print("\(allDishes)")
+//                ProgressHUD.dismiss()
+//                self?.category = allDishes.categoryDish ?? []
+//                self?.populer = allDishes.populer ?? []
+//                self?.chefDish = allDishes.chif ?? []
+//
+//                self?.categoryCollectionView.reloadData()
+//                self?.populerDishCollectionView.reloadData()
+//                self?.chefDishCollectionVIew.reloadData()
+//            case .failure(let error):
+//                print(error.localizedDescription)
+//                ProgressHUD.showError(error.localizedDescription)
+//            }
+//        }
         
        
 
@@ -59,21 +190,22 @@ class HomeViewController: UIViewController {
 //    self.navigationController?.pushViewController(aVc, animated: true)
 //}
     private func registerCells() {
-        categoryCollectionView.register(UINib(nibName: "CategoryCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "CategoryCollectionViewCell")
-        populerDishCollectionView.register(UINib(nibName: "populerDishCollectionView", bundle: nil), forCellWithReuseIdentifier: "populerDishCollectionView")
-        chefDishCollectionVIew.register(UINib(nibName: "chefDishCollectionVIew", bundle: nil), forCellWithReuseIdentifier: "chefDishCollectionVIew")
+        categoryCollectionView.register(UINib(nibName: "CategotyCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "CategotyCollectionViewCell")
+        populerDishCollectionView.register(UINib(nibName: "PopulerDishCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "PopulerDishCollectionViewCell")
+        chefDishCollectionVIew.register(UINib(nibName: "ChefSpecialCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "ChefSpecialCollectionViewCell")
         
     }
     
+  
 }
 extension HomeViewController : UICollectionViewDelegate,UICollectionViewDataSource{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
         switch collectionView {
         case  categoryCollectionView:
-            return category.count
+            return categoryItem.count
         case populerDishCollectionView:
-            return populer.count
+            return popular.count
         case chefDishCollectionVIew:
             return chefDish.count
         default:
@@ -90,12 +222,12 @@ extension HomeViewController : UICollectionViewDelegate,UICollectionViewDataSour
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CategotyCollectionViewCell", for: indexPath) as! CategotyCollectionViewCell
             
             
-            cell.setup(category: category[indexPath.row])
+            cell.setup(category: categoryItem[indexPath.row])
             return cell
         case populerDishCollectionView:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PopulerDishCollectionViewCell", for: indexPath) as! PopulerDishCollectionViewCell
           
-            cell.setup(populerDish: populer[indexPath.row])
+            cell.setup(populerDish: popular[indexPath.row])
             return cell
             
         case chefDishCollectionVIew:
@@ -115,12 +247,13 @@ extension HomeViewController : UICollectionViewDelegate,UICollectionViewDataSour
         if collectionView == categoryCollectionView {
             
             let aVc = storyboard?.instantiateViewController(identifier: "ListDishViewController") as! ListDishViewController
+            aVc.category = categoryItem[indexPath.row]
             navigationController?.pushViewController(aVc, animated: true)
         }
         else {
 
             let controller = storyboard?.instantiateViewController(identifier: "DishDetailsViewController") as! DishDetailsViewController
-            controller.dish = collectionView == populerDishCollectionView ? populer[indexPath.row] : chefDish[indexPath.row]
+            controller.dish = collectionView == populerDishCollectionView ? popular[indexPath.row] : chefDish[indexPath.row]
             navigationController?.pushViewController(controller, animated: true)
         }
     }

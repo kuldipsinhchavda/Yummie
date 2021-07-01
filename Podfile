@@ -6,6 +6,7 @@ target 'Yummie' do
   use_frameworks!
 pod 'Kingfisher'
 pod 'ProgressHUD'
+pod 'Alamofire'
   # Pods for Yummie
 
 end

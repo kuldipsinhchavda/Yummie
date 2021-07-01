@@ -316,6 +316,7 @@
                         <barButtonItem key="rightBarButtonItem" image="cart.circle.fill" catalog="system" id="VdB-Dc-vEW">
                             <color key="tintColor" red="0.8260423925" green="0.0" blue="0.088028693850000006" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
+                                <action selector="order:" destination="GTt-ZS-ZdS" id="4a1-l4-RZH"/>
                                 <segue destination="5rg-u8-RPl" kind="show" id="QSG-bG-FB9"/>
                             </connections>
                         </barButtonItem>

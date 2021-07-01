@@ -74,13 +74,14 @@ struct NetworkService {
             }
             DispatchQueue.main.async {
                 //Todo decode data and send
-                self.handleResponse(result: result, completion: completion)
+                handleResponse(result: result, completion: completion)
             }
         }.resume()
         
     }
     
     private func handleResponse<T: Decodable>(result: Result<Data,Error>?, completion: (Result<T, Error>) -> Void) {
+        
         guard let result = result else {
             completion(.failure(AppError.unknownError))
             return
@@ -94,12 +95,13 @@ struct NetworkService {
                 completion(.failure(AppError.errorDecoding))
                 return
             }
-            
+            print(response.data as Any)
             if let error = response.error {
                 completion(.failure(AppError.serverError(error)))
             }
             
             if let decodedData = response.data {
+                print(decodedData)
                 completion(.success(decodedData))
             }
             else {
